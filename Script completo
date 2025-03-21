@@ -1,0 +1,197 @@
+
+
+local UI = Lib:Create{
+   Theme = "Dark", -- or any other theme
+   Size = UDim2.new(0, 555, 0, 400) -- default
+}
+
+local Main = UI:Tab{
+   Name = "inicio"
+}
+
+local Divider = Main:Divider{
+   Name = "inicio shit"
+}
+
+local QuitDivider = Main:Divider{
+   Name = "sair"
+}
+
+
+
+local ativar = true
+local corInimiga = Color3.new(1, 0, 0) -- Vermelho
+local corAmiga = Color3.new(0, 0, 1) -- Azul
+local fovTamanho = 60
+local setaImagemID = rbxassetid://131444549369998
+
+local function criarElemento(pai, tipo, nome, propriedades)
+    local elemento = pai:FindFirstChild(nome) or Instance.new(tipo, pai)
+    elemento.Name = nome
+    for propriedade, valor in pairs(propriedades) do
+        elemento[propriedade] = valor
+    end
+    return elemento
+end
+
+local function desenharFOV(jogador, cor)
+    local cabeca = jogador.Character and jogador.Character:FindFirstChild("Head")
+    if cabeca then
+        local tela = game.Players.LocalPlayer.PlayerGui
+        local fov = criarElemento(tela, "Frame", "FOV_" .. jogador.Name, {
+            BackgroundColor3 = cor,
+            BackgroundTransparency = 0.5,
+            BorderSizePixel = 0,
+            Size = UDim2.new(0, fovTamanho, 0, fovTamanho),
+            Position = UDim2.new(0, cabeca.Position.X - fovTamanho / 2, 0, cabeca.Position.Y - fovTamanho / 2),
+            Visible = ativar,
+        })
+    end
+end
+
+local function desenharSetas(jogador, cor)
+    local cabeca = jogador.Character and jogador.Character:FindFirstChild("Head")
+    if cabeca then
+        local tela = game.Players.LocalPlayer.PlayerGui
+        local seta = criarElemento(tela, "ImageLabel", "Seta_" .. jogador.Name, {
+            Image = setaImagemID,
+            BackgroundColor3 = cor,
+            BackgroundTransparency = 1,
+            Size = UDim2.new(0, 20, 0, 20),
+            Position = UDim2.new(0, cabeca.Position.X, 0, cabeca.Position.Y - 30),
+            Visible = ativar,
+        })
+    end
+end
+
+game:GetService("RunService").RenderStepped:Connect(function()
+    if ativar then
+        for _, jogador in ipairs(game.Players:GetPlayers()) do
+            if jogador ~= game.Players.LocalPlayer then
+                local cor = jogador.Team == game.Players.LocalPlayer.Team and corAmiga or corInimiga
+                desenharFOV(jogador, cor)
+                desenharSetas(jogador, cor)
+            end
+        end
+    else
+        for _, jogador in ipairs(game.Players:GetPlayers()) do
+            if jogador ~= game.Players.LocalPlayer then
+                local tela = game.Players.LocalPlayer.PlayerGui
+                if tela then
+                    local fov = tela:FindFirstChild("FOV_" .. jogador.Name)
+                    if fov then fov.Visible = false end
+                    local seta = tela:FindFirstChild("Seta_" .. jogador.Name)
+                    if seta then seta.Visible = false end
+                end
+            end
+        end
+    end
+end)
+
+game:GetService("UserInputService").InputBegan:Connect(function(input, jogoProcessado)
+    if input.KeyCode == Enum.KeyCode.F9 then
+        ativar = not ativar
+    end
+end)
+
+setfflag("AbuseReportScreenshot", "False")
+setfflag("AbuseReportScreenshotPercentage", "0")
+end.
+
+local UI = Lib:Create{
+   Theme = "Dark", -- or any other theme
+   Size = UDim2.new(0, 555, 0, 400) -- default
+}
+
+local Main = UI:Tab{
+   Name = "inicio"
+}
+
+local Divider = Main:Divider{
+   Name = "inicio shit"
+}
+
+local QuitDivider = Main:Divider{
+   Name = "sair"
+}
+
+
+
+local ativar = true
+local corInimiga = Color3.new(1, 0, 0) -- Vermelho
+local corAmiga = Color3.new(0, 0, 1) -- Azul
+local fovTamanho = 60
+local setaImagemID = rbxassetid://131444549369998
+
+local function criarElemento(pai, tipo, nome, propriedades)
+    local elemento = pai:FindFirstChild(nome) or Instance.new(tipo, pai)
+    elemento.Name = nome
+    for propriedade, valor in pairs(propriedades) do
+        elemento[propriedade] = valor
+    end
+    return elemento
+end
+
+local function desenharFOV(jogador, cor)
+    local cabeca = jogador.Character and jogador.Character:FindFirstChild("Head")
+    if cabeca then
+        local tela = game.Players.LocalPlayer.PlayerGui
+        local fov = criarElemento(tela, "Frame", "FOV_" .. jogador.Name, {
+            BackgroundColor3 = cor,
+            BackgroundTransparency = 0.5,
+            BorderSizePixel = 0,
+            Size = UDim2.new(0, fovTamanho, 0, fovTamanho),
+            Position = UDim2.new(0, cabeca.Position.X - fovTamanho / 2, 0, cabeca.Position.Y - fovTamanho / 2),
+            Visible = ativar,
+        })
+    end
+end
+
+local function desenharSetas(jogador, cor)
+    local cabeca = jogador.Character and jogador.Character:FindFirstChild("Head")
+    if cabeca then
+        local tela = game.Players.LocalPlayer.PlayerGui
+        local seta = criarElemento(tela, "ImageLabel", "Seta_" .. jogador.Name, {
+            Image = setaImagemID,
+            BackgroundColor3 = cor,
+            BackgroundTransparency = 1,
+            Size = UDim2.new(0, 20, 0, 20),
+            Position = UDim2.new(0, cabeca.Position.X, 0, cabeca.Position.Y - 30),
+            Visible = ativar,
+        })
+    end
+end
+
+game:GetService("RunService").RenderStepped:Connect(function()
+    if ativar then
+        for _, jogador in ipairs(game.Players:GetPlayers()) do
+            if jogador ~= game.Players.LocalPlayer then
+                local cor = jogador.Team == game.Players.LocalPlayer.Team and corAmiga or corInimiga
+                desenharFOV(jogador, cor)
+                desenharSetas(jogador, cor)
+            end
+        end
+    else
+        for _, jogador in ipairs(game.Players:GetPlayers()) do
+            if jogador ~= game.Players.LocalPlayer then
+                local tela = game.Players.LocalPlayer.PlayerGui
+                if tela then
+                    local fov = tela:FindFirstChild("FOV_" .. jogador.Name)
+                    if fov then fov.Visible = false end
+                    local seta = tela:FindFirstChild("Seta_" .. jogador.Name)
+                    if seta then seta.Visible = false end
+                end
+            end
+        end
+    end
+end)
+
+game:GetService("UserInputService").InputBegan:Connect(function(input, jogoProcessado)
+    if input.KeyCode == Enum.KeyCode.F9 then
+        ativar = not ativar
+    end
+end)
+
+setfflag("AbuseReportScreenshot", "False")
+setfflag("AbuseReportScreenshotPercentage", "0")
+end
