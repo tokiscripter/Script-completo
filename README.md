@@ -1,0 +1,2 @@
+# Script-completo
+SCRIPT COMPLETO GALERA (VLW HYPER TMJNT)
